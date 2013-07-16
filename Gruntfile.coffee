@@ -10,13 +10,13 @@ module.exports = (grunt) ->
 
     pkg: grunt.file.readJSON('package.json')
     banner: """
-/*! <%= pkg.name %> (<%= pkg.repository.url %>)
- * lastupdate: <%= grunt.template.today("yyyy-mm-dd") %>
- * version: <%= pkg.version %>
- * author: <%= pkg.author %>
- * License: MIT */
+      /*! <%= pkg.name %> (<%= pkg.repository.url %>)
+       * lastupdate: <%= grunt.template.today("yyyy-mm-dd") %>
+       * version: <%= pkg.version %>
+       * author: <%= pkg.author %>
+       * License: MIT */
 
-"""
+      """
 
     growl:
 

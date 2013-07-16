@@ -5,12 +5,122 @@
 <title></title>
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="styles.css">
+<script src="../../EveEve/eveeve.js"></script>
 <script src="../../libs/jquery/1.9.1/jquery.js"></script>
 <script src="../../jquery.allchecker.js"></script>
-<script>
-</script>
 </head>
 <body>
-foo
+
+<h1><a href="https://github.com/Takazudo/jQuery.allchecker">jQuery.allchecker</a></h1>
+
+<div class="sampleblock">
+
+	<h2>Simple</h2>
+
+	<div id="sample1">
+		<label><input type="checkbox" class="allchecker"> All</label>
+		<div class="children">
+			<label><input type="checkbox"> A</label>
+			<label><input type="checkbox"> B</label>
+			<label><input type="checkbox"> C</label>
+			<label><input type="checkbox"> D</label>
+			<label><input type="checkbox"> E</label>
+			<label><input type="checkbox"> F</label>
+			<label><input type="checkbox"> G</label>
+		</div>
+	</div>
+
+	<script>
+		(function() {
+			$('#sample1').allchecker({
+				selector_parent_check: '.allchecker',
+				selector_children_check: ':checkbox:not(.allchecker)'
+			});
+		}());
+	</script>
+
+<!-- /.sampleblock --></div>
+
+<div class="sampleblock">
+
+	<h2>Classy</h2>
+
+	<div id="sample2">
+		<label><input type="checkbox" class="allchecker"> All</label>
+		<div class="children">
+			<label><input type="checkbox"> A</label>
+			<label><input type="checkbox"> B</label>
+			<label><input type="checkbox"> C</label>
+			<label><input type="checkbox"> D</label>
+			<label><input type="checkbox"> E</label>
+			<label><input type="checkbox"> F</label>
+			<label><input type="checkbox"> G</label>
+		</div>
+	</div>
+
+	<script>
+		(function() {
+			var $el = $('#sample2');
+			var checker = new $.AllChecker($el, {
+				selector_parent_check: '.allchecker',
+				selector_children_check: ':checkbox:not(.allchecker)'
+			})
+		}());
+	</script>
+
+<!-- /.sampleblock --></div>
+
+<div class="sampleblock">
+
+	<h2>Events</h2>
+
+	<div id="sample3">
+		<label><input type="checkbox" class="allchecker"> All</label>
+		<div class="children">
+			<label><input type="checkbox"> A</label>
+			<label><input type="checkbox"> B</label>
+			<label><input type="checkbox"> C</label>
+			<label><input type="checkbox"> D</label>
+			<label><input type="checkbox"> E</label>
+			<label><input type="checkbox"> F</label>
+			<label><input type="checkbox"> G</label>
+		</div>
+	</div>
+
+	<script>
+		(function() {
+
+			var $el = $('#sample3');
+			$el.allchecker({
+				selector_parent_check: '.allchecker',
+				selector_children_check: ':checkbox:not(.allchecker)'
+			});
+			var instance = $el.data('allchecker');
+
+			var $checks = $(':checkbox', $el);
+
+			var updateLabels = function() {
+				$checks.each(function(i, check) {
+					var $check = $(check);
+					var $label = $check.parent();
+					if($check.is(':checked')) {
+						$label.addClass('on');
+					} else {
+						$label.removeClass('on');
+					}
+				});
+			};
+
+			instance.on('change', updateLabels);
+
+			// following code does same thing.
+			//instance.on('parentcheck', updateLabels);
+			//instance.on('childcheck', updateLabels);
+
+		}());
+	</script>
+
+<!-- /.sampleblock --></div>
+
 </body>
 </html>

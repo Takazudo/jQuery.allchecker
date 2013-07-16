@@ -1,10 +1,10 @@
 {
   "name": "jQuery.allchecker",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "'Takazudo' Takeshi Takatsudo <takazudo@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Takazudo/jQuery.currentDots"
+    "url": "https://github.com/Takazudo/jQuery.allchecker"
   },
   "devDependencies": {
     "grunt": "~0.4.0",

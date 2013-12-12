@@ -1,6 +1,6 @@
 /*! jQuery.allchecker (https://github.com/Takazudo/jQuery.allchecker)
  * lastupdate: 2013-12-13
- * version: 0.1.0
+ * version: 0.2.0
  * author: 'Takazudo' Takeshi Takatsudo <takazudo@gmail.com>
  * License: MIT */
 (function() {

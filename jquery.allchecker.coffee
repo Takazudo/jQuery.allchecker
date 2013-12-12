@@ -15,13 +15,16 @@ do ($ = jQuery, window = window) ->
     @defaults =
       selector_parent_check: null # required
       selector_children_check: null # required
+      initialCheck_fromParent: true
+      initialCheck_fromChildren: false
 
     constructor: (@$el, options = {}) ->
 
       @options = $.extend {}, ns.Main.defaults, options
       @_prepareEls()
       @_eventify()
-      @handleChildrenStatsFromParent()
+      @handleChildrenStatsFromParent() if @options.initialCheck_fromParent
+      @handleParentStatsFromChildren() if @options.initialCheck_fromChildren
 
     handleChildrenStatsFromParent: ->
 

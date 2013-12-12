@@ -1,5 +1,5 @@
 /*! jQuery.allchecker (https://github.com/Takazudo/jQuery.allchecker)
- * lastupdate: 2013-07-17
+ * lastupdate: 2013-12-13
  * version: 0.1.0
  * author: 'Takazudo' Takeshi Takatsudo <takazudo@gmail.com>
  * License: MIT */
@@ -18,7 +18,9 @@
 
       Main.defaults = {
         selector_parent_check: null,
-        selector_children_check: null
+        selector_children_check: null,
+        initialCheck_fromParent: true,
+        initialCheck_fromChildren: false
       };
 
       function Main($el, options) {
@@ -29,7 +31,12 @@
         this.options = $.extend({}, ns.Main.defaults, options);
         this._prepareEls();
         this._eventify();
-        this.handleChildrenStatsFromParent();
+        if (this.options.initialCheck_fromParent) {
+          this.handleChildrenStatsFromParent();
+        }
+        if (this.options.initialCheck_fromChildren) {
+          this.handleParentStatsFromChildren();
+        }
       }
 
       Main.prototype.handleChildrenStatsFromParent = function() {

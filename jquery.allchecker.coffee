@@ -21,7 +21,7 @@ do ($ = jQuery, window = window) ->
     constructor: (@$el, options = {}) ->
 
       @options = $.extend {}, ns.Main.defaults, options
-      @_prepareEls()
+      @refreshElements true
       @_eventify()
       @handleChildrenStatsFromParent() if @options.initialCheck_fromParent
       @handleParentStatsFromChildren() if @options.initialCheck_fromChildren
@@ -95,11 +95,12 @@ do ($ = jQuery, window = window) ->
       @trigger.apply this, args
       return this
 
-    _prepareEls: ->
+    refreshElements: (skipCheck = false) ->
 
       o = @options
       @$checker_parent = @$el.find o.selector_parent_check
       @$checkers_children = @$el.find o.selector_children_check
+      @handleParentStatsFromChildren() unless skipCheck
       return this
 
 

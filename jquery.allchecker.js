@@ -1,5 +1,5 @@
 /*! jQuery.allchecker (https://github.com/Takazudo/jQuery.allchecker)
- * lastupdate: 2013-12-13
+ * lastupdate: 2013-12-14
  * version: 0.2.0
  * author: 'Takazudo' Takeshi Takatsudo <takazudo@gmail.com>
  * License: MIT */
@@ -29,7 +29,7 @@
           options = {};
         }
         this.options = $.extend({}, ns.Main.defaults, options);
-        this._prepareEls();
+        this.refreshElements(true);
         this._eventify();
         if (this.options.initialCheck_fromParent) {
           this.handleChildrenStatsFromParent();
@@ -129,11 +129,17 @@
         return this;
       };
 
-      Main.prototype._prepareEls = function() {
+      Main.prototype.refreshElements = function(skipCheck) {
         var o;
+        if (skipCheck == null) {
+          skipCheck = false;
+        }
         o = this.options;
         this.$checker_parent = this.$el.find(o.selector_parent_check);
         this.$checkers_children = this.$el.find(o.selector_children_check);
+        if (!skipCheck) {
+          this.handleParentStatsFromChildren();
+        }
         return this;
       };
 

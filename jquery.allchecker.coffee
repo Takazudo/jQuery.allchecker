@@ -17,6 +17,7 @@ do ($ = jQuery, window = window) ->
       selector_children_check: null # required
       initialCheck_fromParent: true
       initialCheck_fromChildren: false
+      use_eventDelegation: true
 
     constructor: (@$el, options = {}) ->
 
@@ -77,17 +78,24 @@ do ($ = jQuery, window = window) ->
     _eventify: ->
 
       o = @options
-
-      @$el.delegate o.selector_parent_check, 'click', (e) =>
+      
+      parentClickHandler = (e) =>
         @handleChildrenStatsFromParent()
         @_triggerEvent 'parentcheck', e.currentTarget
         @_triggerEvent 'change'
-        
-      @$el.delegate o.selector_children_check, 'click', (e) =>
+      
+      childrenClickHandler = (e) =>
         @handleParentStatsFromChildren()
         @_triggerEvent 'childcheck', e.currentTarget
         @_triggerEvent 'change'
-        
+      
+      if o.use_eventDelegation
+        @$el.delegate o.selector_parent_check, 'click', parentClickHandler
+        @$el.delegate o.selector_children_check, 'click', childrenClickHandler
+      else
+        $(o.selector_parent_check, @$el).bind 'click', parentClickHandler
+        $(o.selector_children_check, @$el).bind 'click', childrenClickHandler
+
       return this
 
     _triggerEvent: (args...) ->

@@ -1,5 +1,5 @@
 /*! jQuery.allchecker (https://github.com/Takazudo/jQuery.allchecker)
- * lastupdate: 2013-12-14
+ * lastupdate: 2014-10-14
  * version: 0.2.0
  * author: 'Takazudo' Takeshi Takatsudo <takazudo@gmail.com>
  * License: MIT */
@@ -20,7 +20,8 @@
         selector_parent_check: null,
         selector_children_check: null,
         initialCheck_fromParent: true,
-        initialCheck_fromChildren: false
+        initialCheck_fromChildren: false,
+        use_eventDelegation: true
       };
 
       function Main($el, options) {
@@ -106,19 +107,26 @@
       };
 
       Main.prototype._eventify = function() {
-        var o,
+        var childrenClickHandler, o, parentClickHandler,
           _this = this;
         o = this.options;
-        this.$el.delegate(o.selector_parent_check, 'click', function(e) {
+        parentClickHandler = function(e) {
           _this.handleChildrenStatsFromParent();
           _this._triggerEvent('parentcheck', e.currentTarget);
           return _this._triggerEvent('change');
-        });
-        this.$el.delegate(o.selector_children_check, 'click', function(e) {
+        };
+        childrenClickHandler = function(e) {
           _this.handleParentStatsFromChildren();
           _this._triggerEvent('childcheck', e.currentTarget);
           return _this._triggerEvent('change');
-        });
+        };
+        if (o.use_eventDelegation) {
+          this.$el.delegate(o.selector_parent_check, 'click', parentClickHandler);
+          this.$el.delegate(o.selector_children_check, 'click', childrenClickHandler);
+        } else {
+          $(o.selector_parent_check, this.$el).bind('click', parentClickHandler);
+          $(o.selector_children_check, this.$el).bind('click', childrenClickHandler);
+        }
         return this;
       };
 

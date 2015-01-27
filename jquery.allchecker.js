@@ -1,5 +1,5 @@
 /*! jQuery.allchecker (https://github.com/Takazudo/jQuery.allchecker)
- * lastupdate: 2014-10-14
+ * lastupdate: 2015-01-27
  * version: 0.3.0
  * author: 'Takazudo' Takeshi Takatsudo <takazudo@gmail.com>
  * License: MIT */
@@ -156,10 +156,10 @@
     })(EveEve);
     $.fn.allchecker = function(options) {
       return this.each(function() {
-        var $el, tab;
+        var $el, allchecker;
         $el = $(this);
-        tab = new ns.Main($el, options);
-        $el.data('allchecker', tab);
+        allchecker = new ns.Main($el, options);
+        $el.data('allchecker', allchecker);
       });
     };
     $.AllCheckerNs = ns;

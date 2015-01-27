@@ -120,8 +120,8 @@ do ($ = jQuery, window = window) ->
     return @each ->
 
       $el = $(@)
-      tab = new ns.Main $el, options
-      $el.data 'allchecker', tab
+      allchecker = new ns.Main $el, options
+      $el.data 'allchecker', allchecker
       return
 
   # ============================================================

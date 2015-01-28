@@ -77,7 +77,7 @@
 	<div id="sample3">
 		<label><input type="checkbox" class="allchecker"> All</label>
 		<div class="children">
-			<label><input type="checkbox"> A</label>
+			<label><input type="checkbox" id="foo"> A</label>
 			<label><input type="checkbox"> B</label>
 			<label><input type="checkbox"> C</label>
 			<label><input type="checkbox"> D</label>
@@ -93,7 +93,8 @@
 			var $el = $('#sample3');
 			$el.allchecker({
 				selector_parent_check: '.allchecker',
-				selector_children_check: ':checkbox:not(.allchecker)'
+				selector_children_check: ':checkbox:not(.allchecker)',
+				trigger_events_for_each_inputs: true
 			});
 			var instance = $el.data('allchecker');
 
@@ -116,6 +117,11 @@
 			// following code does same thing.
 			//instance.on('parentcheck', updateLabels);
 			//instance.on('childcheck', updateLabels);
+			
+			// each inputs can know the allchecker's change via custom event
+			$('#foo').bind('allCheckerChange', function() {
+				console.log('allCheckerChange was triggered')
+			});
 
 		}());
 	</script>

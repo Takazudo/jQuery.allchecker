@@ -18,6 +18,7 @@ do ($ = jQuery, window = window) ->
       initialCheck_fromParent: true
       initialCheck_fromChildren: false
       use_eventDelegation: true
+      trigger_events_for_each_inputs: false
 
     constructor: (@$el, options = {}) ->
 
@@ -46,13 +47,21 @@ do ($ = jQuery, window = window) ->
     checkAllChildren: ->
       
       for check in @$checkers_children
+        $check = $(check)
+        prevCheckStats = $check.prop 'checked'
         $(check).prop 'checked', true
+        if (prevCheckStats is false) and @options.trigger_events_for_each_inputs
+          $check.trigger 'allCheckerChange'
       return this
 
     uncheckAllChildren: ->
 
       for check in @$checkers_children
+        $check = $(check)
+        prevCheckStats = $check.prop 'checked'
         $(check).prop 'checked', false
+        if (prevCheckStats is true) and @options.trigger_events_for_each_inputs
+          $check.trigger 'allCheckerChange'
       return this
 
     allChecked: ->

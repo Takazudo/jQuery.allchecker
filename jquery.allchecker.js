@@ -1,5 +1,5 @@
 /*! jQuery.allchecker (https://github.com/Takazudo/jQuery.allchecker)
- * lastupdate: 2015-01-27
+ * lastupdate: 2015-01-28
  * version: 0.3.0
  * author: 'Takazudo' Takeshi Takatsudo <takazudo@gmail.com>
  * License: MIT */
@@ -21,7 +21,8 @@
         selector_children_check: null,
         initialCheck_fromParent: true,
         initialCheck_fromChildren: false,
-        use_eventDelegation: true
+        use_eventDelegation: true,
+        trigger_events_for_each_inputs: false
       };
 
       function Main($el, options) {
@@ -59,21 +60,31 @@
       };
 
       Main.prototype.checkAllChildren = function() {
-        var check, _i, _len, _ref;
+        var $check, check, prevCheckStats, _i, _len, _ref;
         _ref = this.$checkers_children;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           check = _ref[_i];
+          $check = $(check);
+          prevCheckStats = $check.prop('checked');
           $(check).prop('checked', true);
+          if ((prevCheckStats === false) && this.options.trigger_events_for_each_inputs) {
+            $check.trigger('allCheckerChange');
+          }
         }
         return this;
       };
 
       Main.prototype.uncheckAllChildren = function() {
-        var check, _i, _len, _ref;
+        var $check, check, prevCheckStats, _i, _len, _ref;
         _ref = this.$checkers_children;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           check = _ref[_i];
+          $check = $(check);
+          prevCheckStats = $check.prop('checked');
           $(check).prop('checked', false);
+          if ((prevCheckStats === true) && this.options.trigger_events_for_each_inputs) {
+            $check.trigger('allCheckerChange');
+          }
         }
         return this;
       };
